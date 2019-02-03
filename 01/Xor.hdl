@@ -1,0 +1,29 @@
+CHIP Xor {
+    IN a, b;
+    OUT out;
+
+    PARTS:
+    Nand(a=a, b=b, out=nand-ab);
+    Nand(a=a, b=nand-ab, out=w1);
+    Nand(a=nand-ab, b=b, out=w2);
+    Nand(a=w1, b=w2, out=out);
+
+    // naive implementation
+    // // Not(a)
+    // Nand(a=a, b=a, out=not-a);
+    // Not(b)
+    // Nand(a=b, b=b, out=not-b);
+    
+    // // And(a, not-b)
+    // Nand(a=a, b=not-b, out=and1-w);
+    // Nand(a=and1-w, b=and1-w, out=and1);
+
+    // // And(not-a, b)
+    // Nand(a=not-a, b=b, out=and2-w);
+    // Nand(a=and2-w, b=and2-w, out=and2);
+
+    // // Or(And(a, not-b), And(not-b, a))
+    // Nand(a=and1, b=and1, out=not-and1);
+    // Nand(a=and2, b=and2, out=not-and2);
+    // Nand(a=not-and1, b=not-and2, out=out);
+}
