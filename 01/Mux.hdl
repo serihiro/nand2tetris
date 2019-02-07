@@ -9,7 +9,7 @@ CHIP Mux {
     // so we need to get the result of And(a, 1).
     // On the other hand, we need to ignore the value of b,
     // so we need to get the value of And(b, 0).
-    Not (in=sel, out=not-sel);
+    Not (a=sel, out=not-sel);
     And (a=a, b=not-sel, out=w1);
     And (a=b, b=sel, out=w2);
     Or (a=w1, b=w2, out=out);
