@@ -1,0 +1,18 @@
+CHIP FullAdder {
+    IN a, b, c;
+    OUT sum, carry;
+
+    PARTS:
+    HalfAdder(a=a, b=b, sum=tmp-sum, carry=tmp1-carry);
+    HalfAdder(a=tmp-sum, b=c, sum=sum, carry=tmp2-carry);
+    Or(a=tmp1-carry, b=tmp2-carry, out=carry);
+
+    // an another answer
+    // Xor(a=a, b=b, out=xor-ab);
+    // Xor(a=xor-ab, b=c, out=sum);
+    // And(a=a, b=b, out=and-ab);
+    // And(a=b, b=c, out=and-bc);
+    // And(a=a, b=c, out=and-ac);
+    // Or(a=and-ab, b=and-bc, out=tmp-carry);
+    // Or(a=tmp-carry, b=and-ac, out=carry);
+}
