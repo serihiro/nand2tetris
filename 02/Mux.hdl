@@ -1,0 +1,24 @@
+CHIP Mux {
+    IN a, b, sel;
+    OUT out;
+
+    PARTS:
+    // Here we need to use `AND bit masking`.
+    // e.g.
+    // When sel=0, we want to save only the value of a,
+    // so we need to get the result of And(a, 1).
+    // On the other hand, we need to ignore the value of b,
+    // so we need to get the value of And(b, 0).
+    Not (a=sel, out=not-sel);
+    And (a=a, b=not-sel, out=w1);
+    And (a=b, b=sel, out=w2);
+    Or (a=w1, b=w2, out=out);
+
+    // My first bad answer :(
+    // Xor(a=a, b=sel,out=w1);
+    // Not(a=sel, out=not-sel);
+    // Xor(a=b, b=not-sel, out=w2);
+    // And(a=w1, b=w2, out=w3);
+    // And(a=a, b=b, out=w4);
+    // Or(a=w3, b=w4, out=out);
+}
